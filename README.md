@@ -12,7 +12,7 @@ This is a hardhat use case where web3 meets the blockchain technology.
 ---------------
 
 ```sh
-# clone this repo -- don't forget to give it a star
+# clone this repository - Give it a star pleasee!!!
 git clone https://github.com/Jaz-3-0/paypal.3.0.git
 # install hardhat
 npm install --save-dev hardhat @nomiclabs/hardhat-waffle ethereum-waffle ethereum-waffle chai @nomiclabs/hardhat-ethereum ethers dotenv
@@ -32,6 +32,8 @@ _**Try running some of the following tasks:**_
 ```sh
 # get full help on hardhat tasks
 npx hardhat help
+# Initialize new project
+npx hardhat init
 # get accounts
 npx hardhat accounts
 # clean the environment
@@ -81,7 +83,7 @@ cd client
 # install dependencies
 npm install
 # start application
-npm start || npm run dev
+npm start
 ```
 
 ### **Regarding utilization**
@@ -95,6 +97,6 @@ npm start || npm run dev
 - Click connect wallet
 - Get your full user experience
 
---------------------
+------------------------------
 
 @Jaz-3-0
