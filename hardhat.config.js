@@ -19,17 +19,16 @@ dotenv.config();
   },
   networks: {
     hardhat: {},
-    sepolia: {
-      url: process.env.SEPOLIA,
-      accounts: [process.env.PRIVATE_KEY],
-      chainId: 11155111,
-    },
     mumbai: {
       url: process.env.POLYGON_MUMBAI,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
       chainId: 80001,
     },
-
+    sepolia: {
+      url: process.env.SEPOLIA,
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 11155111,
+    },
     arbitrum_sepolia: {
       url: process.env.ARBITRUM_SEPOLIA,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
@@ -57,6 +56,10 @@ dotenv.config();
       accounts: [`0x${process.env.PRIVATE_KEY}`],
       chainId: 42161,
     },
+  },
+  etherscan: {
+    apiKey: process.env.POLYGON_API_KEY,
+
   },
 
   settings: {
