@@ -1,4 +1,4 @@
-require("@nomicfoundation/hardhat-toolbox");
+// require("@nomicfoundation/hardhat-toolbox");
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
 
@@ -15,7 +15,7 @@ dotenv.config();
   module.exports = {
      solidity: {
       version: "0.8.24",
-      defaultNetwork: mumbai,
+      defaultNetwork: "mumbai",
   },
   networks: {
     hardhat: {},
@@ -44,12 +44,12 @@ dotenv.config();
     polygon: {
       url: process.env.POLYGON,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
-      chainId: "",
+      chainId: 137,
     },
     optimism: {
       url: process.env.OPTIMISM,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
-      chainId: "",
+      chainId: 10,
     },
     arbitrum_one: {
       url: process.env.ARBITRUM_ONE,
