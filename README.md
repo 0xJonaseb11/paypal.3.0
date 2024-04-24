@@ -49,6 +49,12 @@ npx hardhat run scripts/deploy.js --network mumbai
 
 ```
 
+`Contract verification`
+
+```sh
+npx hardhat verify <contract_address> --network mumbai
+```
+
 ## Check your .env
 
 ```sh
