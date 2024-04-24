@@ -1,8 +1,10 @@
-const hre = require("hardhat");
+const { ethers } = require("ethers");
 
 const Main = async () => {
 
-  const Paypal = await hre.ethers.getContractFactory("Paypal");
+  // const [provider] = await ethers.getSigner();
+
+  const Paypal = await ethers.getContractFactory("Paypal");
   const paypal = await Paypal.deploy();
 
   console.log("Deploying Paypal contract...");

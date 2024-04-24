@@ -15,13 +15,13 @@ dotenv.config();
   module.exports = {
      solidity: {
       version: "0.8.24",
-      defaultNetwork: "mumbai",
+      defaultNetwork: "",
   },
   networks: {
     hardhat: {},
     mumbai: {
       url: process.env.POLYGON_MUMBAI,
-      accounts: [`0x${process.env.PRIVATE_KEY}`],
+      accounts: [process.env.PRIVATE_KEY],
       chainId: 80001,
     },
     /**
