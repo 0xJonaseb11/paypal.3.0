@@ -24,6 +24,7 @@ dotenv.config();
       accounts: [`0x${process.env.PRIVATE_KEY}`],
       chainId: 80001,
     },
+    /**
     sepolia: {
       url: process.env.SEPOLIA,
       accounts: [process.env.PRIVATE_KEY],
@@ -34,8 +35,9 @@ dotenv.config();
       accounts: [`0x${process.env.PRIVATE_KEY}`],
       chainId: 421614,
     },
+    */
 
-    // Main networks
+    /** Main networks
     mainnet: {
       url: process.env.MAINNET,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
@@ -49,13 +51,14 @@ dotenv.config();
     optimism: {
       url: process.env.OPTIMISM,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
-      chainId: 10,
+      chainId: ,
     },
     arbitrum_one: {
       url: process.env.ARBITRUM_ONE,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
       chainId: 42161,
     },
+    */
   },
   etherscan: {
     apiKey: process.env.POLYGON_API_KEY,
