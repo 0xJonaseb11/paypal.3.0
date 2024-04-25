@@ -25,6 +25,20 @@ app.get('/getNameAndBalance', async(req, res) => {
 
   const jsonResponseName = response.raw;
   
+  const secResponse = await Moralis.EvmApi.balance.getNativeBalance({
+    chain: "0x3881",
+    address: userAddress,
+  });
+
+  const jsonResponseBal = (secResponse.raw.balance / 1e18).toFixed(2);
+
+
+  const jsonResponse = {
+    name: jsonResponseName,
+    balance: jsonResponseBal,
+  }
+
+  // middleware funciton
 
 
 
