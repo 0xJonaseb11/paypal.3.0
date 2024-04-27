@@ -32,13 +32,22 @@ app.get('/getNameAndBalance', async(req, res) => {
 
   const jsonResponseBal = (secResponse.raw.balance / 1e18).toFixed(2);
 
+  const thirdResponse = await Moralis.EvmApi.token.getTokenPrice({
+    //matic token address
+    address: "0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0",
+  });
+
+  const jsonResponseDollars = (
+    thirdResponse.raw.usdPrice * jsonResponseBal
+  ). toFixed(2);
+
+
 
   const jsonResponse = {
     name: jsonResponseName,
     balance: jsonResponseBal,
+    dollars: jsonResponseDollars,
   }
-
-  // middleware funciton
 
 
 
