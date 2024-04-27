@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.get('/getNameAndBalance', async(req, res) => {
 
-  const { userAddress } = req.query.user;
+  const { userAddress } = req.query;
 
   const response = await Moralis.EvmApi.utils.runContractFunction({
     chain: "0x3881",
@@ -65,7 +65,7 @@ Moralis.start({
   apiKey: process.env.MORALIS_API_KEY,
 }).then(() => {
   app.listen(port, () => {
-    console.log(`Listening on https://localhost:${port}`)
+    console.log(`Listening on http://localhost:${port}`)
   });
 });
 
