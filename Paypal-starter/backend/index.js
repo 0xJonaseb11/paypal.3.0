@@ -5,11 +5,24 @@ require("dotenv").config();
 
 const port = 8080;
 const ABI = require("./abi.json");
+const { type } = require('os');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+const convertArrayToObjects = (arr) => {
+  const dataArray = arr.map((transaction, index) => ({
+    key: (arr.length + 1 - index).toString(),
+    type: transaction[0],
+    amount: transaction[1],
+    message: transaction[2],
+    address: `${transaction[3].slice(0, 4)}...${transaction[3].slice(38)}`,
+    subject: transaction[4],
+
+  }));
+}
 
 app.get('/getNameAndBalance', async(req, res) => {
 
