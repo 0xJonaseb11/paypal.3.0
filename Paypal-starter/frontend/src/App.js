@@ -31,21 +31,29 @@ function App() {
         <Header className="header">
           <div className="headerLeft">
             <img src={logo} alt="logo" className="logo" />
+            { isConnected && 
             <>
-              <div
-                className="menuOption"
-                style={{ borderBottom: "1.5px solid black" }}
-              >
-                Summary
-              </div>
-              <div className="menuOption">Activity</div>
-              <div className="menuOption">{`Send & Request`}</div>
-              <div className="menuOption">Wallet</div>
-              <div className="menuOption">Help</div>
-            </>
+            <div
+              className="menuOption"
+              style={{ borderBottom: "1.5px solid black" }}
+            >
+              Summary
+            </div>
+            <div className="menuOption">Activity</div>
+            <div className="menuOption">{`Send & Request`}</div>
+            <div className="menuOption">Wallet</div>
+            <div className="menuOption">Help</div>
+          </>            
+            }
+            
           </div>
 
-          <Button type={"primary"}>Connect Wallet</Button>
+          { isConnected ?
+          <Button type={"primary"} onClick={ disconnectAndSetNull()}>Disconnect wallet</Button>
+          : <Button type={"primary"} onClick={ connect()}>Connect Wallet</Button>
+
+          }
+
         </Header>
         <Content className="content">
           <div className="firstColumn">
