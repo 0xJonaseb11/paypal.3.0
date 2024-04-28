@@ -9,9 +9,20 @@ import RecentActivity from "./componets/RecentActivity";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
 import { MetamaskConnector } from "wagmi/connectors/metamask";
 
+import axios from "axios";
+import { useState, useEffect, useSyncExternalStore } from "react";
+
+
 const { Header, Content } = Layout;
 
 function App() {
+
+  const [name, setName] = useState("...");
+  const [balance, setBalance] = useState("...");
+  const [dollars, setDollars] = useState("...");
+  const [history, setHistory] = useState(null);
+  const [requests, setRequests] = useState({"1": [0], "0": []});
+
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { connect } = useConnect({
@@ -55,22 +66,20 @@ function App() {
           )}
         </Header>
         <Content className="content">
-          { isConnected ? (
+          {isConnected ? (
             <>
-                      <div className="firstColumn">
-                      <CurrentBalance />
-                      <RequestAndPay />
-                      <AccountDetails />
-                    </div>
-                    <div className="secondColumn">
-                      <RecentActivity />
-                    </div>
-                    </>
-          ):
-          (
+              <div className="firstColumn">
+                <CurrentBalance />
+                <RequestAndPay />
+                <AccountDetails />
+              </div>
+              <div className="secondColumn">
+                <RecentActivity />
+              </div>
+            </>
+          ) : (
             <div>Please login</div>
           )}
-
         </Content>
       </Layout>
     </div>
