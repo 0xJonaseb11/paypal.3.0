@@ -6,9 +6,25 @@ import RequestAndPay from "./componets/RequestAndPay";
 import AccountDetails from "./componets/AccountDetails";
 import RecentActivity from "./componets/RecentActivity";
 
+import { useConnect, useAccount, useDisconnect} from "wagmi";
+import { MetamaskConnector } from "wagmi/connectors/metamask";
+
+
 const { Header, Content } = Layout;
 
 function App() {
+
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { connect } = useConnect({
+    connector: new MetamaskConnector(),
+  });
+
+  const disconnectAndSetNull = () => {
+    disconnect();
+  }
+
+
   return (
     <div className="App">
       <Layout>
