@@ -5,7 +5,6 @@ require("dotenv").config();
 
 const port = 8080;
 const ABI = require("./abi.json");
-const { type } = require('os');
 
 const app = express();
 
@@ -22,6 +21,7 @@ const convertArrayToObjects = (arr) => {
     subject: transaction[4],
 
   }));
+  return dataArray.reverse();
 }
 
 app.get('/getNameAndBalance', async(req, res) => {
@@ -60,15 +60,26 @@ app.get('/getNameAndBalance', async(req, res) => {
     function: "getMyHistory",
     abi: ABI,
     params: {_user, userAddress},
-  })
+  });
 
+  const jsonResponseHistory = convertArrayToObjects(fourthResponse.raw);
 
+  const fifthResponse = await Moralis.EvmApi.utils.runContractFunction({
+    chain: "0x13881",
+    address: "0x20F75f430AB4D1281de4d24bDC849d681Df9A69b",
+    function: "getMyRequests",
+    abi: ABI,
+    params: {_user, userAddress},
+  });
+
+  const jsonResponseRequests = fifthResponse.raw;
 
   const jsonResponse = {
     name: jsonResponseName,
     balance: jsonResponseBal,
     dollars: jsonResponseDollars,
-    history: fourthResponse.raw,
+    history: jsonResponseHistory,
+    requests: jsonResponseRequests,
   }
 
   return res.status(200).json({});
