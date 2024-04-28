@@ -6,14 +6,12 @@ import RequestAndPay from "./componets/RequestAndPay";
 import AccountDetails from "./componets/AccountDetails";
 import RecentActivity from "./componets/RecentActivity";
 
-import { useConnect, useAccount, useDisconnect} from "wagmi";
+import { useConnect, useAccount, useDisconnect } from "wagmi";
 import { MetamaskConnector } from "wagmi/connectors/metamask";
-
 
 const { Header, Content } = Layout;
 
 function App() {
-
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { connect } = useConnect({
@@ -22,8 +20,7 @@ function App() {
 
   const disconnectAndSetNull = () => {
     disconnect();
-  }
-
+  };
 
   return (
     <div className="App">
@@ -31,39 +28,49 @@ function App() {
         <Header className="header">
           <div className="headerLeft">
             <img src={logo} alt="logo" className="logo" />
-            { isConnected && 
-            <>
-            <div
-              className="menuOption"
-              style={{ borderBottom: "1.5px solid black" }}
-            >
-              Summary
-            </div>
-            <div className="menuOption">Activity</div>
-            <div className="menuOption">{`Send & Request`}</div>
-            <div className="menuOption">Wallet</div>
-            <div className="menuOption">Help</div>
-          </>            
-            }
-            
+            {isConnected && (
+              <>
+                <div
+                  className="menuOption"
+                  style={{ borderBottom: "1.5px solid black" }}
+                >
+                  Summary
+                </div>
+                <div className="menuOption">Activity</div>
+                <div className="menuOption">{`Send & Request`}</div>
+                <div className="menuOption">Wallet</div>
+                <div className="menuOption">Help</div>
+              </>
+            )}
           </div>
 
-          { isConnected ?
-          <Button type={"primary"} onClick={ disconnectAndSetNull()}>Disconnect wallet</Button>
-          : <Button type={"primary"} onClick={ connect()}>Connect Wallet</Button>
-
-          }
-
+          {isConnected ? (
+            <Button type={"primary"} onClick={disconnectAndSetNull()}>
+              Disconnect wallet
+            </Button>
+          ) : (
+            <Button type={"primary"} onClick={connect()}>
+              Connect Wallet
+            </Button>
+          )}
         </Header>
         <Content className="content">
-          <div className="firstColumn">
-            <CurrentBalance />
-            <RequestAndPay />
-            <AccountDetails />
-          </div>
-          <div className="secondColumn">
-            <RecentActivity />
-          </div>
+          { isConnected ? (
+            <>
+                      <div className="firstColumn">
+                      <CurrentBalance />
+                      <RequestAndPay />
+                      <AccountDetails />
+                    </div>
+                    <div className="secondColumn">
+                      <RecentActivity />
+                    </div>
+                    </>
+          ):
+          (
+            <div>Please login</div>
+          )}
+
         </Content>
       </Layout>
     </div>
