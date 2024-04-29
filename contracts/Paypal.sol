@@ -1,143 +1,154 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-contract Paypal {
-    // define the owner of the smart contract
+contract Paypal{
 
-    address public owner;
+//Define the Owner of the smart contract 
 
-    constructor () {
+address public owner;
+
+
+constructor(){
         owner = msg.sender;
-    }
+}
 
-    // create struct and mapping for request, tx and name
 
-    struct Request {
+//Create Struct and Mappping for request, transaction & name
+
+
+struct request {
         address requestor;
         uint256 amount;
         string message;
         string name;
-    }
+}
 
-    struct SendReceive {
+struct sendReceive {
         string action;
         uint256 amount;
         string message;
         address otherPartyAddress;
         string otherPartyName;
-    }
+}
 
-    struct UserName {
+struct userName {
         string name;
         bool hasName;
+}
+
+mapping(address => userName) names;
+mapping(address  => request[]) requests;
+mapping(address  => sendReceive[]) history;
+
+
+//Add a name to wallet address
+
+function addName(string memory _name) public {
+    
+    userName storage newUserName = names[msg.sender];
+    newUserName.name = _name;
+    newUserName.hasName = true;
+
+}
+
+
+//Create a Request
+
+function createRequest(address user, uint256 _amount, string memory _message) public {
+        
+    request memory newRequest;
+    newRequest.requestor = msg.sender;
+    newRequest.amount = _amount;
+    newRequest.message = _message;
+    if(names[msg.sender].hasName){
+        newRequest.name = names[msg.sender].name;
     }
+    requests[user].push(newRequest);
+
+}
 
 
-    mapping (address => UserName) names;
-    mapping (address => Request[]) requests;
-    mapping (address => SendReceive[]) history;
+//Pay a Request
 
-    // add a name to contract address
+function payRequest(uint256 _request) public payable {
+    
+    require(_request < requests[msg.sender].length, "No Such Request");
+    request[] storage myRequests = requests[msg.sender];
+    request storage payableRequest = myRequests[_request];
+        
+    uint256 toPay = payableRequest.amount * 1000000000000000000;
+    require(msg.value == (toPay), "Pay Correct Amount");
 
-    function addName (string memory _name) public {
-        UserName storage newUserName = names[msg.sender];
-        newUserName.name = _name;
-        newUserName.hasName = true;
+    payable(payableRequest.requestor).transfer(msg.value);
+
+    addHistory(msg.sender, payableRequest.requestor, payableRequest.amount, payableRequest.message);
+
+    myRequests[_request] = myRequests[myRequests.length-1];
+    myRequests.pop();
+
+}
+
+function addHistory(address sender, address receiver, uint256 _amount, string memory _message) private {
+        
+    sendReceive memory newSend;
+    newSend.action = "Send";
+    newSend.amount = _amount;
+    newSend.message = _message;
+    newSend.otherPartyAddress = receiver;
+    if(names[receiver].hasName){
+        newSend.otherPartyName = names[receiver].name;
     }
+    history[sender].push(newSend);
 
-    // create a request
-
-    function createRequest(address user, uint256 _amount, string memory _message) public {
-        Request memory newRequest;
-        newRequest.requestor = msg.sender;
-        newRequest.amount = _amount;
-        newRequest.message = _message;
-
-        if (names[msg.sender].hasName) {
-            newRequest.name = names[msg.sender].name;
-        } 
-        requests[user].push(newRequest);
-
+    sendReceive memory newReceive;
+    newReceive.action = "Receive";
+    newReceive.amount = _amount;
+    newReceive.message = _message;
+    newReceive.otherPartyAddress = sender;
+    if(names[sender].hasName){
+        newReceive.otherPartyName = names[sender].name;
     }
-
-    // Pay a request
-
-    function payRequest(uint256 _request) public payable {
-        require(_request < requests[msg.sender].length, "No such request");
-        Request[] storage myRequests = requests[msg.sender];
-        Request storage payableRequest = myRequests[_request];
-
-        uint256 toPay = payableRequest.amount * 1000000000000000000;
-        require(msg.value == (toPay), "Pay correct amount");
-
-        payable(payableRequest.requestor).transfer(msg.value);
-
-        addHistory(msg.sender, payableRequest.requestor, payableRequest.amount, payableRequest.message);
-
-        myRequests[_request] = myRequests[myRequests.length - 1];
-        myRequests.pop();
-
-    }
-
-    // add history
-    function addHistory (address sender, address receiver, uint256 _amount, string memory _message) private {
-        SendReceive memory newSend;
-        newSend.action = "-";
-        newSend.amount = _amount;
-        newSend.message = _message;
-        newSend.otherPartyAddress = receiver;
-
-        if (names[receiver].hasName) {
-            newSend.otherPartyName = names[receiver].name;
-        }
-        history[sender].push(newSend);
-
-        SendReceive memory newReceive;
-        newReceive.action = "+";
-        newReceive.amount = _amount;
-        newReceive.message = _message;
-        newReceive.otherPartyAddress = sender;
-
-        if (names[sender].hasName) {
-            newReceive.otherPartyName = names[sender].name;
-        }
-        history[receiver].push(newReceive);
+    history[receiver].push(newReceive);
+}
 
 
-    }
+//Get all requests sent to a User
 
-    // Get all requests sent to a user
+function getMyRequests(address _user) public view returns(
+         address[] memory, 
+         uint256[] memory, 
+         string[] memory, 
+         string[] memory
+){
 
-    function getMyRequests(address _user) public view returns (
-        address[] memory,
-        uint256[] memory,
-        string[] memory,
-        string[] memory
-    ) {
         address[] memory addrs = new address[](requests[_user].length);
         uint256[] memory amnt = new uint256[](requests[_user].length);
         string[] memory msge = new string[](requests[_user].length);
         string[] memory nme = new string[](requests[_user].length);
-
-        for (uint256 i = 0; i < requests[_user].length; i++) {
-            Request storage myRequests = requests[_user][i];
+        
+        for (uint i = 0; i < requests[_user].length; i++) {
+            request storage myRequests = requests[_user][i];
             addrs[i] = myRequests.requestor;
             amnt[i] = myRequests.amount;
             msge[i] = myRequests.message;
             nme[i] = myRequests.name;
         }
-        return (addrs, amnt, msge, nme);
-    }
+        
+        return (addrs, amnt, msge, nme);        
+         
 
-    // Get all histories of all txs a user had been part of
+}
 
-    function getMyHistory(address _user) public view returns(SendReceive[] memory) {
+
+//Get all historic transactions user has been apart of
+
+
+function getMyHistory(address _user) public view returns(sendReceive[] memory){
         return history[_user];
-    }
+}
 
-    // Get name
-    function getName(address _user) public view returns(UserName memory) {
+function getMyName(address _user) public view returns(userName memory){
         return names[_user];
-    }
+}
 
 }
