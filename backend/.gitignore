@@ -1,0 +1,13 @@
+# compiler files
+cache
+out
+build
+
+# node_modules
+node_modules
+
+# .env
+.env
+
+# tests
+coverage

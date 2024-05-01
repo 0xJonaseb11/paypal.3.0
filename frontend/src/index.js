@@ -1,5 +1,11 @@
 import React from 'react';
+<<<<<<< HEAD
 import ReactDOM from 'react-dom/client';
+=======
+import ReactDOM from 'react-dom';
+
+// import ReactDOM from 'react-dom/client';
+>>>>>>> ce5d293 (rebased --reolve)
 import './index.css';
 import App from './App';
 import { configureChains, mainnet, WagmiConfig, createClient } from "wagmi";

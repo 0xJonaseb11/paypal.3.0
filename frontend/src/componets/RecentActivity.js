@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Table } from "antd";
 
 
+<<<<<<< HEAD
 const history = [
   {
     key: "1",
@@ -69,6 +70,8 @@ const history = [
   },
 ];
 
+=======
+>>>>>>> ce5d293 (rebased --reolve)
 const columns = [
   {
     title: "Payment Subjet",
@@ -105,7 +108,11 @@ const columns = [
   },
 ];
 
+<<<<<<< HEAD
 function RecentActivity({}) {
+=======
+function RecentActivity({history}) {
+>>>>>>> ce5d293 (rebased --reolve)
 
   return (
     <Card title="Recent Activity" style={{ width: "100%", minHeight: "663px" }}>

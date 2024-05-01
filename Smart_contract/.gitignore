@@ -4,6 +4,10 @@ node_modules
 # Hardhat files
 /cache
 /artifacts
+<<<<<<< HEAD
+=======
+out
+>>>>>>> ce5d293 (rebased --reolve)
 
 # TypeChain files
 /typechain

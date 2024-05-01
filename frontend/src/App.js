@@ -6,11 +6,19 @@ import RequestAndPay from "./componets/RequestAndPay";
 import AccountDetails from "./componets/AccountDetails";
 import RecentActivity from "./componets/RecentActivity";
 
+<<<<<<< HEAD
 import { useConnect, useAccount, useDisconnect } from "wagmi";
 import { MetamaskConnector } from "wagmi/connectors/metamask";
 
 import axios from "axios";
 import { useState, useEffect, useSyncExternalStore } from "react";
+=======
+import { useConnect, useAccount, useDisconnect } from "wagmi/hooks";
+import { MetamaskConnector } from "wagmi/connectors/metamask";
+
+import axios from "axios";
+import { useState, useEffect } from "react";
+>>>>>>> ce5d293 (rebased --reolve)
 
 
 const { Header, Content } = Layout;
@@ -31,14 +39,44 @@ function App() {
 
   const disconnectAndSetNull = () => {
     disconnect();
+<<<<<<< HEAD
+=======
+    setName("...");
+    setBalance("...");
+    setDollars("...");
+    setHistory("...");
+    setRequests("...");
+>>>>>>> ce5d293 (rebased --reolve)
   };
 
   const getNameAndBalance = async () => {
     const res = await axios.get(`http://localhost:8080/getNameAndBalance`, {
       params: { userAddress: address}
+<<<<<<< HEAD
     })
   }
 
+=======
+    });
+    const response = res.data;
+    console.log(response);
+
+    if (response.name[1]) {
+      setName(response.name[0]);
+    }
+    setBalance(String(response.balance));
+    setDollars(String(response.dollars));
+    setHistory(String(response.history));
+    setRequests(String(response.requests));
+
+  }
+
+  useEffect(() => {
+    if (!isConnected) return;
+    getNameAndBalance();
+  }, [isConnected])
+
+>>>>>>> ce5d293 (rebased --reolve)
   return (
     <div className="App">
       <Layout>
@@ -75,12 +113,24 @@ function App() {
           {isConnected ? (
             <>
               <div className="firstColumn">
+<<<<<<< HEAD
                 <CurrentBalance />
                 <RequestAndPay />
                 <AccountDetails />
               </div>
               <div className="secondColumn">
                 <RecentActivity />
+=======
+                <CurrentBalance dollars={dollars}/>
+                <RequestAndPay requests={requests} getNameAndBalance={getNameAndBalance}/>
+                <AccountDetails
+                address={address}
+                name={name}
+                balance={balance}/>
+              </div>
+              <div className="secondColumn">
+                <RecentActivity history={history}/>
+>>>>>>> ce5d293 (rebased --reolve)
               </div>
             </>
           ) : (
