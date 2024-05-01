@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { DollarOutlined, SwapOutlined } from "@ant-design/icons";
 import { Modal, Input, InputNumber } from "antd";
-<<<<<<< HEAD
 
-
-function RequestAndPay({}) {
-=======
 import { usePrepareContractWire, useContractWire, useWaitForTransaction } from "wagmi";
 import { polygonMumbai } from "@wagmi/chains";
 import { ABI } from "../abi.json";
 
 function RequestAndPay({requests, getNameAndBalance}) {
->>>>>>> ce5d293 (rebased --reolve)
+
   const [payModal, setPayModal] = useState(false);
   const [requestModal, setRequestModal] = useState(false);
   const [requestAmount, setRequestAmount] = useState(5);
   const [requestAddress, setRequestAddress] = useState("");
   const [requestMessage, setRequestMessage] = useState("");
 
-<<<<<<< HEAD
-=======
   const { config } = usePrepareContractWire({
     chainId: polygonMumbai.id,
     address: "0x20F75f430AB4D1281de4d24bDC849d681Df9A69b",
@@ -60,8 +54,6 @@ function RequestAndPay({requests, getNameAndBalance}) {
   }, [isSuccess, isSuccessRequest]); 
 
 
-
->>>>>>> ce5d293 (rebased --reolve)
   const showPayModal = () => {
     setPayModal(true);
   };
@@ -83,17 +75,13 @@ function RequestAndPay({requests, getNameAndBalance}) {
         open={payModal}
         onOk={() => {
           hidePayModal();
-<<<<<<< HEAD
-=======
+
           write?.();
->>>>>>> ce5d293 (rebased --reolve)
         }}
         onCancel={hidePayModal}
         okText="Proceed To Pay"
         cancelText="Cancel"
       >
-<<<<<<< HEAD
-=======
 
       {requests && requests["0"].length > 0 && (
         <>
@@ -102,17 +90,15 @@ function RequestAndPay({requests, getNameAndBalance}) {
         <p>"{requests["2"][0]}"</p>
         </>
       )}
->>>>>>> ce5d293 (rebased --reolve)
+
       </Modal>
       <Modal
         title="Request A Payment"
         open={requestModal}
         onOk={() => {
           hideRequestModal();
-<<<<<<< HEAD
-=======
+
           writeRequest?.();
->>>>>>> ce5d293 (rebased --reolve)
         }}
         onCancel={hideRequestModal}
         okText="Proceed To Request"
@@ -134,13 +120,10 @@ function RequestAndPay({requests, getNameAndBalance}) {
         >
           <DollarOutlined style={{ fontSize: "26px" }} />
           Pay
-<<<<<<< HEAD
-            <div className="numReqs">2</div>
-=======
+
           {requests && requests["0"].length > 0 && (
             <div className="numRegs">{requests["0"].length} </div>
           )}
->>>>>>> ce5d293 (rebased --reolve)
         </div>
         <div
           className="quickOption"
