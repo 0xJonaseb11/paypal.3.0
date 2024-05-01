@@ -8,7 +8,7 @@ import RecentActivity from "./componets/RecentActivity";
 
 
 import { useConnect, useAccount, useDisconnect } from "wagmi";
-import { MetamaskConnector } from "wagmi/connectors/metamask";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -27,7 +27,7 @@ function App() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { connect } = useConnect({
-    connector: new MetamaskConnector(),
+    connector: new MetaMaskConnector(),
   });
 
   const disconnectAndSetNull = () => {
