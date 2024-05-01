@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DollarOutlined, SwapOutlined } from "@ant-design/icons";
 import { Modal, Input, InputNumber } from "antd";
 
-import { usePrepareContractWire, useContractWire, useWaitForTransaction } from "wagmi";
+import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
 import { polygonMumbai } from "@wagmi/chains";
 import { ABI } from "../abi.json";
 
@@ -14,7 +14,7 @@ function RequestAndPay({requests, getNameAndBalance}) {
   const [requestAddress, setRequestAddress] = useState("");
   const [requestMessage, setRequestMessage] = useState("");
 
-  const { config } = usePrepareContractWire({
+  const { config } = usePrepareContractWrite({
     chainId: polygonMumbai.id,
     address: "0x20F75f430AB4D1281de4d24bDC849d681Df9A69b",
     abi: ABI,
@@ -25,13 +25,13 @@ function RequestAndPay({requests, getNameAndBalance}) {
     },
   });
 
-  const { write, data } = useContractWire(config);
+  const { write, data } = useContractWrite(config);
 
   const { isSuccess} = useWaitForTransaction({
     hash: data?.hash,
   });
 
-  const { config: configRequest } = usePrepareContractWire({
+  const { config: configRequest } = usePrepareContractWrite({
     chainId: polygonMumbai.id,
     address: "0x20F75f430AB4D1281de4d24bDC849d681Df9A69b",
     abi: ABI,
@@ -40,7 +40,7 @@ function RequestAndPay({requests, getNameAndBalance}) {
    
   });
 
-  const { write: writeRequest, data: dataRequest } = useContractWire(configRequest);
+  const { write: writeRequest, data: dataRequest } = useContractWrite(configRequest);
 
   const { isSuccess: isSuccessRequest} = useWaitForTransaction({
     hash: dataRequest?.hash,
