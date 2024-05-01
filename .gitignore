@@ -8,3 +8,6 @@ cache
 
 # tests
 coverage
+
+# node_modules
+node_modules
