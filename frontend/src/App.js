@@ -109,6 +109,7 @@ function App() {
               </div>
               <div className="secondColumn">
                 <RecentActivity history={history}/>
+
               </div>
             </>
           ) : (
