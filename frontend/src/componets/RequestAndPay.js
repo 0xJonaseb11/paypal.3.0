@@ -4,7 +4,9 @@ import { Modal, Input, InputNumber } from "antd";
 
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
 import { polygonMumbai } from "@wagmi/chains";
-import { ABI } from "../abi.json";
+
+import { default as ABI } from '../abi.json';
+
 
 function RequestAndPay({requests, getNameAndBalance}) {
 
