@@ -7,7 +7,7 @@ import AccountDetails from "./componets/AccountDetails";
 import RecentActivity from "./componets/RecentActivity";
 
 
-import { useConnect, useAccount, useDisconnect } from "wagmi/hooks";
+import { useConnect, useAccount, useDisconnect } from "wagmi";
 import { MetamaskConnector } from "wagmi/connectors/metamask";
 
 import axios from "axios";
