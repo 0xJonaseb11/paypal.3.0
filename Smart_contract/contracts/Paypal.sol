@@ -12,9 +12,7 @@ constructor(){
         owner = msg.sender;
 }
 
-
-//Create Struct and Mappping for request, transaction & name
-
+//Struct and Mappping for request, transaction & name
 
 struct request {
         address requestor;

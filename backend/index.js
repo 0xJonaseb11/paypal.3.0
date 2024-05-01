@@ -85,6 +85,6 @@ Moralis.start({
   apiKey: process.env.MORALIS_KEY,
 }).then(() => {
   app.listen(port, () => {
-    console.log(`Listening for API Calls at http://localhost:${port}`);
+    console.log(`Listening for API calls at http://localhost:${port}`);
   });
 });

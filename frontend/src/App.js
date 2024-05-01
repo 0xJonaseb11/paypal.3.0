@@ -35,7 +35,7 @@ function App() {
   }
 
   async function getNameAndBalance() {
-    const res = await axios.get(`http://localhost:8080/getNameAndBalance`, {
+    const res = await axios.get(`http://localhost:8jaz@jaz-ThinkBook-14-G2-ITL:~/Documents/ACADEMICS/WEB3.0/WEB3PAYPAL$ 080/getNameAndBalance`, {
       params: { userAddress: address },
     });
 

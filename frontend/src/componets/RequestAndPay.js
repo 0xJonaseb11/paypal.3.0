@@ -111,7 +111,7 @@ function RequestAndPay({requests, getNameAndBalance}) {
         <p>From (address)</p>
         <Input placeholder="0x..." value={requestAddress} onChange={(val)=>setRequestAddress(val.target.value)}/>
         <p>Message</p>
-        <Input placeholder="Lunch Bill..." value={requestMessage} onChange={(val)=>setRequestMessage(val.target.value)}/>
+        <Input placeholder="Enter request message..." value={requestMessage} onChange={(val)=>setRequestMessage(val.target.value)}/>
       </Modal>
       <div className="requestAndPay">
         <div
